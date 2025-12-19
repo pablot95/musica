@@ -21,6 +21,8 @@ const translations = {
         'intensity-low': 'Bajo',
         'intensity-medium': 'Medio',
         'intensity-high': 'Alto',
+        'now-playing-label': 'REPRODUCIENDO AHORA',
+        'select-a-song': 'Selecciona una canción',
         'services-title': 'Nuestros Servicios',
         'services-subtitle': 'Ofrecemos una amplia gama de servicios que entretienen, motivan y comunican',
         'service1-title': 'Playlists Exclusivas y No Exclusivas',
@@ -138,6 +140,18 @@ function changeLanguage(lang) {
         }
     });
     
+    // Change banner images based on language
+    const banner1 = document.querySelector('.hero-image img');
+    const banner2 = document.querySelector('.about-image img');
+    
+    if (lang === 'en') {
+        if (banner1) banner1.src = 'images/Banner1Eng.png';
+        if (banner2) banner2.src = 'images/Banner2Eng.png';
+    } else {
+        if (banner1) banner1.src = 'images/Banner1.png';
+        if (banner2) banner2.src = 'images/Banner2.png';
+    }
+    
     // Update active button state
     document.querySelectorAll('.lang-btn').forEach(btn => {
         if (btn.getAttribute('data-lang') === lang) {
@@ -245,6 +259,117 @@ document.querySelectorAll('.service-card').forEach((card, index) => {
     
     cardObserver.observe(card);
 });
+
+// Animar elementos de playlist
+document.querySelectorAll('.playlist-item').forEach((item, index) => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(40px)';
+    item.style.transition = `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`;
+    
+    const playlistObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    playlistObserver.observe(item);
+});
+
+// Animar player section (jukebox) independientemente
+const playerSection = document.querySelector('.player-section');
+if (playerSection) {
+    playerSection.style.opacity = '0';
+    playerSection.style.transform = 'translateY(50px)';
+    playerSection.style.transition = 'opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s';
+    
+    const playerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    playerObserver.observe(playerSection);
+}
+
+// Animar elementos de nosotros
+const nosotrosImages = document.querySelectorAll('#nosotros .thematic-images img');
+nosotrosImages.forEach((img, index) => {
+    img.style.opacity = '0';
+    img.style.transform = 'translateY(40px)';
+    img.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    
+    const imgObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    imgObserver.observe(img);
+});
+
+const nosotrosContent = document.querySelector('#nosotros .nosotros-content');
+if (nosotrosContent) {
+    nosotrosContent.style.opacity = '0';
+    nosotrosContent.style.transform = 'translateY(40px)';
+    nosotrosContent.style.transition = 'opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s';
+    
+    const contentObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    contentObserver.observe(nosotrosContent);
+}
+
+// Animar elementos de contacto
+const contactInfo = document.querySelector('.contact-info');
+if (contactInfo) {
+    contactInfo.style.opacity = '0';
+    contactInfo.style.transform = 'translateY(40px)';
+    contactInfo.style.transition = 'opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s';
+    
+    const contactInfoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    contactInfoObserver.observe(contactInfo);
+}
+
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    contactForm.style.opacity = '0';
+    contactForm.style.transform = 'translateY(40px)';
+    contactForm.style.transition = 'opacity 0.7s ease 0.4s, transform 0.7s ease 0.4s';
+    
+    const contactFormObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    contactFormObserver.observe(contactForm);
+}
 
 // ===== JUKEBOX MUSIC PLAYER =====
 let currentTrackIndex = 0;
